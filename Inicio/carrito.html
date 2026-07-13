@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASCOTERIAS - Carrito</title>
+    <link rel="stylesheet" href="../style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            $("#btn-carrito-menu").click(function(){
+                window.location = "carrito.html";
+            });
+
+            $("#buscador input").keydown(function(e){
+                if(e.key === "Enter"){
+                    var texto = $(this).val().trim();
+                    window.location = "busqueda.html?q=" + encodeURIComponent(texto);
+                }
+            });
+
+            var carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
+
+            function normalizarImg(src){
+                var img = src || "../imagenes/logo.png";
+                if(img.indexOf("../") !== 0 && img.indexOf("http") !== 0){
+                    img = "../" + img;
+                }
+                return img;
+            }
+
+            function agrupar(lista){
+                var grupos = [];
+                $.each(lista, function(index, item){
+                    var existente = null;
+                    $.each(grupos, function(i, g){
+                        if(g.nombre === item.nombre && g.precio === item.precio){
+                            existente = g;
+                        }
+                    });
+                    if(existente){
+                        existente.cantidad++;
+                    } else {
+                        grupos.push({nombre: item.nombre, precio: item.precio, img: item.img, cantidad: 1});
+                    }
+                });
+                return grupos;
+            }
+
+            function pintarCarrito(){
+                $(".item-carrito").remove();
+                $("#carrito-vacio").remove();
+
+                carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
+
+                if(carrito.length === 0){
+                    $("#seccion-carrito").append("<p id='carrito-vacio'>Tu carrito está vacío.</p>");
+                    $(".btn-comprar").hide();
+                    $(".btn-vaciar").hide();
+                    return;
+                }
+
+                $(".btn-comprar").show();
+                $(".btn-vaciar").show();
+
+                var grupos = agrupar(carrito);
+
+                $.each(grupos, function(index, g){
+                    var img = normalizarImg(g.img);
+                    var cantidadTexto = g.cantidad > 1 ? " x" + g.cantidad : "";
+                    var itemHtml = "<div class='item-carrito' data-nombre=\"" + g.nombre + "\" data-precio=\"" + g.precio + "\">" +
+                        "<img src='" + img + "' alt='" + g.nombre + "'>" +
+                        "<div class='item-info'>" +
+                            "<p class='item-nombre'>" + g.nombre + cantidadTexto + "</p>" +
+                            "<p class='item-precio'>" + g.precio + "</p>" +
+                        "</div>" +
+                        "<button class='btn-quitar'>Quitar</button>" +
+                    "</div>";
+                    $(".btn-comprar").before(itemHtml);
+                });
+            }
+
+            $(document).on("click", ".btn-quitar", function(){
+                var fila = $(this).closest(".item-carrito");
+                var nombre = fila.data("nombre").toString();
+                var precio = fila.data("precio").toString();
+
+                carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
+                var quitado = false;
+                var nuevoCarrito = [];
+                $.each(carrito, function(index, item){
+                    if(!quitado && item.nombre === nombre && item.precio === precio){
+                        quitado = true;
+                        return;
+                    }
+                    nuevoCarrito.push(item);
+                });
+                localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
+                pintarCarrito();
+            });
+
+            $(".btn-vaciar").click(function(){
+                localStorage.setItem("carrito", "[]");
+                pintarCarrito();
+            });
+
+            pintarCarrito();
+
+        })
+    </script>
+</head>
+<body>
+    <main>
+        <header>
+            <nav id="menu">
+                <a href="../index.html">INICIO</a>
+                <a href="../hypervinculos/productos.html">PRODUCTOS</a>
+                <div id="logo"><img src="../imagenes/logo.png" alt="logo"></div>
+                <a href="../hypervinculos/ofertas.html">OFERTAS</a>
+                <a href="../hypervinculos/mas.html">MÁS</a>
+                <button id="btn-carrito-menu">Carrito</button>
+            </nav>
+            <div id="barra">
+                <div id="buscador">
+                    <input type="text" placeholder="Que buscas hoy?">
+                </div>
+                <div id="pedidos">
+                    QUIERES RECIBIR PEDIDOS? <button>Elegir</button>
+                </div>
+            </div>
+        </header>
+        <article>
+            <section id="seccion-carrito">
+                <h2>Carrito</h2>
+                <a href="confirmacion.html" class="btn-comprar">COMPRAR</a>
+                <button class="btn-vaciar">Vaciar carrito</button>
+            </section>
+        </article>
+        <footer>
+            <p>© 2026 MASCOTERIAS - Todos los derechos reservados</p>
+        </footer>
+    </main>
+</body>
+</html>

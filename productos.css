@@ -1,0 +1,111 @@
+.catalogo{
+    width: 95%;
+    margin: 30px auto;
+}
+
+.catalogo h2{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.contenido-catalogo{
+   display:flex;
+   gap:0px;
+   align-items:flex-start;
+   margin-top:10px;
+}
+
+.categorias{
+    width: 180px;
+    background:#f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.categorias h3{
+    border-bottom: 2px solid orange;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.categorias ul{
+    list-style:none;
+    padding: 0;
+}
+
+.categorias li{
+    cursor:pointer;
+    margin: 12px 0;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.categorias li:hover{
+    background:#ff9900;
+    color: white;
+    font-weight:bold;
+}
+
+.productos{
+    flex:1;
+}
+
+.filtros{
+    display:flex;
+    justify-content:flex-end;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 12px;
+}
+
+.filtros select{
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.precio{
+    display:block;
+    margin: 8px 0;
+    font-weight:bold;
+    color:#ff9900;
+}
+
+.producto{
+    width: 220px;
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
+.producto:hover{
+    border: 2px solid orange;
+}
+
+.btn-agregar{
+    display:block;
+    margin-top:10px;
+    border-radius:8px;
+}
+
+.marco-imagen{
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    margin-bottom: 12px;
+    border: 2px solid #999;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.marco-imagen img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

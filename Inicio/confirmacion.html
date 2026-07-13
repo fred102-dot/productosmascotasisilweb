@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASCOTERIAS - Confirmacion</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <nav id="menu">
+                <a href="../index.html">INICIO</a>
+                <a href="../hypervinculos/productos.html">PRODUCTOS</a>
+                <div id="logo"><img src="../imagenes/logo.png" alt="logo"></div>
+                <a href="../hypervinculos/ofertas.html">OFERTAS</a>
+                <a href="../hypervinculos/mas.html">MÁS</a>
+                <button id="btn-carrito-menu" onclick="window.location='carrito.html'">Carrito</button>
+            </nav>
+            <div id="barra">
+                <div id="buscador">
+                    <input type="text" placeholder="Que buscas hoy?" onkeydown="if(event.key==='Enter') window.location='busqueda.html'">
+                </div>
+                <div id="pedidos">
+                    QUIERES RECIBIR PEDIDOS? <button>Elegir</button>
+                </div>
+            </div>
+        </header>
+        <article>
+            <section id="seccion-confirmacion">
+                <div id="check">✅</div>
+                <h2>¡Gracias por tus compras!</h2>
+                <p>Tu pedido fue recibido correctamente. Pronto recibirás tu producto.</p>
+                <a href="../index.html" class="btn-comprar">SEGUIR COMPRANDO</a>
+            </section>
+        </article>
+        <footer>
+            <p>© 2026 MASCOTERIAS - Todos los derechos reservados</p>
+        </footer>
+    </main>
+</body>
+</html>

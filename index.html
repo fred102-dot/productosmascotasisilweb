@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASCOTERIAS-INICIO</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            $("#bienvenida").hide().fadeIn(1500);
+
+            $("#estadisticas").hide().fadeIn(2000);
+
+            $(".producto").mouseenter(function(){
+                $(this).animate({marginTop: "-5px"}, 150);
+            });
+            $(".producto").mouseleave(function(){
+                $(this).animate({marginTop: "0px"}, 150);
+            });
+
+            $(".btn-agregar").click(function(e){
+                e.preventDefault();
+                var nombre = $(this).siblings(".nombre-producto").text();
+                var precio = $(this).siblings(".precio-producto").text();
+                var img = $(this).closest(".producto").find(".img-producto").attr("src");
+                localStorage.setItem("prod_nombre", nombre);
+                localStorage.setItem("prod_precio", precio);
+                localStorage.setItem("prod_img", img);
+                window.location = "producto.html";
+            });
+
+            $("#buscador input").keydown(function(e){
+                if(e.key === "Enter"){
+                    var texto = $(this).val().trim();
+                    window.location = "Inicio/busqueda.html?q=" + encodeURIComponent(texto);
+                }
+            });
+
+            $("#btn-carrito-menu").click(function(){
+                window.location = "Inicio/carrito.html";
+            });
+
+        })
+    </script>
+
+
+    <script type="text/javascript">
+        $(function(){
+            var actual = 0;
+            var slides = $(".slide");
+            var puntos = $(".punto");
+
+            function cambiar(){
+                slides.eq(actual).fadeOut(500);
+                puntos.eq(actual).removeClass("active");
+                actual = (actual + 1) % slides.length;
+                slides.eq(actual).fadeIn(500);
+                puntos.eq(actual).addClass("active");
+            }
+
+            setInterval(cambiar, 3000);
+        })
+    </script>
+</head>
+<body>
+    <main>
+
+        <header>
+            <nav id="menu">
+                <a href="index.html">INICIO</a>
+                <a href="hypervinculos/productos.html">PRODUCTOS</a>
+                <div id="logo"><img src="imagenes/logo.png" alt="logo"></div>
+                <a href="hypervinculos/ofertas.html">OFERTAS</a>
+                <a href="hypervinculos/mas.html">MÁS</a>
+                <button id="btn-carrito-menu">Carrito</button>
+            </nav>
+            <div id="barra">
+                <div id="buscador">
+                    <input type="text" placeholder="Que buscas hoy?">
+                </div>
+                <div id="pedidos">
+                    QUIERES RECIBIR PEDIDOS? <button>Elegir</button>
+                </div>
+            </div>
+        
+        </header>
+
+        <article>
+
+            <section id="banner-principal">
+                <div class="banner-slide">
+                    <div class="banner-texto-principal">
+                        <h2>Todo para tu mascota</h2>
+                        <p>Los mejores productos al mejor precio</p>
+                        <a href="hypervinculos/productos.html" class="btn-banner-principal">VER PRODUCTOS</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="categorias-rapidas">
+                <div class="categoria-rapida">
+                    <p>Perros</p>
+                </div>
+                <div class="categoria-rapida">
+                    <p>Gatos</p>
+                </div>
+                <div class="categoria-rapida">
+                    <p>Otros Animales</p>
+                </div>
+                <div class="categoria-rapida">
+                    <p>Salud</p>
+                </div>
+                <div class="categoria-rapida">
+                    <p>Higiene</p>
+                </div>
+                <div class="categoria-rapida">
+                    <p>Ofertas</p>
+                </div>
+            </section>
+
+            <section id="tendencia">
+                <div id="cuadrado"></div>
+                <div id="cuadrado2"></div>
+                <div id="cuadrado3"></div>
+                <div class="seccion-header">
+                    <h2>PRODUCTOS EN TENDENCIA 🔥</h2>
+                    <a href="hypervinculos/productos.html" class="ver-todos">Ver todos →</a>
+                </div>
+                <div class="productos-grid">
+                    <div class="producto">
+                        <div class="producto-img-wrap"><img class="img-producto" src="productos_imagenes/alimento para perro 3kg.jfif" alt="producto"><div class="prod-tag">NUEVO</div></div>
+                        <p class="nombre-producto">Alimento Perro 3kg</p>
+                        <p class="precio-producto">S/ 45.90</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                    <div class="producto">
+                        <div class="producto-img-wrap"><img class="img-producto" src="productos_imagenes/Juguete para perro.jpg" alt="producto"><div class="prod-tag">POPULAR</div></div>
+                        <p class="nombre-producto">Juguete Para Perro</p>
+                        <p class="precio-producto">S/ 12.50</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                    <div class="producto">
+                        <div class="producto-img-wrap"><img class="img-producto" src="productos_imagenes/correa para gatos.jfif" alt="producto"></div>
+                        <p class="nombre-producto">Correa Para Gatos</p>
+                        <p class="precio-producto">S/ 18.00</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                    <div class="producto">
+                        <div class="producto-img-wrap"><img class="img-producto" src="productos_imagenes/cama para gatos.jfif" alt="producto"></div>
+                        <p class="nombre-producto">Cama Para Gatos</p>
+                        <p class="precio-producto">S/ 35.00</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                    <div class="producto">
+                        <div class="producto-img-wrap"><img class="img-producto" src="productos_imagenes/shampoo para perros.jfif" alt="producto"><div class="prod-tag prod-oferta">-20%</div></div>
+                        <p class="nombre-producto">Shampoo Para Perro</p>
+                        <p class="precio-producto">S/ 22.00</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                </div>
+                <div class="productos-grid">
+                    <div class="producto">
+                        <div class="producto-img-wrap"><img class="img-producto" src="productos_imagenes/pelota para perros.jfif" alt="producto"></div>
+                        <p class="nombre-producto">Pelota Para Perro</p>
+                        <p class="precio-producto">S/ 8.90</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                    <div class="producto">
+                        <div class="producto-img-wrap"><img class="img-producto" src="productos_imagenes/rascador para gatos.jfif" alt="producto"><div class="prod-tag prod-oferta">-30%</div></div>
+                        <p class="nombre-producto">Rascador Para Gatos</p>
+                        <p class="precio-producto">S/ 55.00</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                    <div class="producto">
+                        <div class="producto-img-wrap"><img class="img-producto" src="productos_imagenes/arena para gatos.jfif" alt="producto"></div>
+                        <p class="nombre-producto">Arena Para Gatos</p>
+                        <p class="precio-producto">S/ 28.00</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                    <div class="producto">
+                        <div class="producto-img-wrap"><img class="img-producto" src="productos_imagenes/collar para gatos.jfif" alt="producto"></div>
+                        <p class="nombre-producto">Collar Para Gatos</p>
+                        <p class="precio-producto">S/ 15.00</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                    <div class="producto">
+                        <div class="producto-img-wrap"><img class="img-producto" src="productos_imagenes/snacks para perros.jfif" alt="producto"><div class="prod-tag">NUEVO</div></div>
+                        <p class="nombre-producto">Snacks Para Perro</p>
+                        <p class="precio-producto">S/ 10.50</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                </div>
+            </section>
+
+
+            <section id="carrusel">
+                <div id="carrusel-imagenes">
+                    <div class="slide active">
+                        <div class="slide-placeholder" style="background: linear-gradient(135deg, #ff8c00, #e65c00);">
+                            <p class="slide-icono">🛏️</p>
+                            <p class="slide-titulo">Cama Para Perro</p>
+                            <p class="slide-sub">Comodidad y descanso para tu mascota</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-placeholder" style="background: linear-gradient(135deg, #2d6a2d, #1a4d1a);">
+                            <p class="slide-icono">🐱</p>
+                            <p class="slide-titulo">Juguetes Para Gatos</p>
+                            <p class="slide-sub">Diversión garantizada para tu gato</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-placeholder" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+                            <p class="slide-icono">🎧</p>
+                            <p class="slide-titulo">Audífonos Para Mascotas</p>
+                            <p class="slide-sub">Lo último en accesorios para tu mascota</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="carrusel-puntos">
+                    <span class="punto active"></span>
+                    <span class="punto"></span>
+                    <span class="punto"></span>
+                </div>
+            </section>
+
+            <section id="banner-doble">
+                <div class="banner-mitad banner-verde">
+                    <h3>🚚 ENVÍO GRATIS</h3>
+                    <p>En compras mayores a S/. 50</p>
+                </div>
+                <div class="banner-mitad banner-naranja">
+                    <h3>⭐ CALIDAD GARANTIZADA</h3>
+                    <p>Productos verificados para tu mascota</p>
+                </div>
+            </section>
+
+            <section id="servicios">
+                <div class="seccion-header">
+                    <h2>NUESTROS SERVICIOS</h2>
+                </div>
+                <div id="servicios-grid">
+                    <div class="servicio">
+                        <div class="servicio-img-wrap"><img src="productos_imagenes/lavado para mascotas.jfif" alt="Lavado"></div>
+                        <h3>Lavado de Mascota</h3>
+                        <p>Dejamos a tu mascota limpia y feliz con nuestro servicio profesional.</p>
+                        <a href="#" class="btn-servicio">Ver más</a>
+                    </div>
+                    <div class="servicio">
+                        <div class="servicio-img-wrap"><img src="productos_imagenes/cuidador de perros.jfif" alt="Cuidador"></div>
+                        <h3>Cuidador de Perros</h3>
+                        <p>Tu perro estará en las mejores manos. Cuidado personalizado 24h.</p>
+                        <a href="#" class="btn-servicio">Ver más</a>
+                    </div>
+                    <div class="servicio">
+                        <div class="servicio-img-wrap"><img src="productos_imagenes/salud para gatos.jfif" alt="Salud"></div>
+                        <h3>Salud de Gatos</h3>
+                        <p>Consultas veterinarias especializadas para el bienestar de tu gato.</p>
+                        <a href="#" class="btn-servicio">Ver más</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="por-que">
+                <div id="por-que-fondo">
+                    <h2>¿POR QUÉ ELEGIRNOS?</h2>
+                    <div id="por-que-grid">
+                        <div class="razon">
+                            <p class="razon-icono">🚚</p>
+                            <p class="razon-titulo">Envío Rápido</p>
+                            <p class="razon-texto">Recibe tu pedido en menos de 24 horas.</p>
+                        </div>
+                        <div class="razon">
+                            <p class="razon-icono">⭐</p>
+                            <p class="razon-titulo">Calidad Garantizada</p>
+                            <p class="razon-texto">Solo trabajamos con las mejores marcas.</p>
+                        </div>
+                        <div class="razon">
+                            <p class="razon-icono">💳</p>
+                            <p class="razon-titulo">Pago Seguro</p>
+                            <p class="razon-texto">Tus datos siempre protegidos.</p>
+                        </div>
+                        <div class="razon">
+                            <p class="razon-icono">🐾</p>
+                            <p class="razon-titulo">Atención Especializada</p>
+                            <p class="razon-texto">Equipo experto listo para ayudarte.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="estadisticas">
+                <div class="estadistica">
+                    <p class="estadistica-numero">+500</p>
+                    <p class="estadistica-label">🐶 Productos</p>
+                </div>
+                <div class="estadistica-divider"></div>
+                <div class="estadistica">
+                    <p class="estadistica-numero">+1000</p>
+                    <p class="estadistica-label">😊 Clientes felices</p>
+                </div>
+                <div class="estadistica-divider"></div>
+                <div class="estadistica">
+                    <p class="estadistica-numero">+50</p>
+                    <p class="estadistica-label">🚀 Marcas</p>
+                </div>
+            </section>
+
+            <section id="testimonios">
+                <h2>LO QUE DICEN NUESTROS CLIENTES</h2>
+                <div id="testimonios-grid">
+                    <div class="testimonio">
+                        <div class="testimonio-avatar">M</div>
+                        <p class="estrellas">⭐⭐⭐⭐⭐</p>
+                        <p class="testimonio-texto">"Excelente servicio, mi perro ama los productos. Llegaron rápido y en perfecto estado."</p>
+                        <p class="testimonio-nombre">— María G.</p>
+                    </div>
+                    <div class="testimonio">
+                        <div class="testimonio-avatar">C</div>
+                        <p class="estrellas">⭐⭐⭐⭐⭐</p>
+                        <p class="testimonio-texto">"Los mejores precios y atención increíble. Ya soy cliente fijo de Mascoterias."</p>
+                        <p class="testimonio-nombre">— Carlos R.</p>
+                    </div>
+                    <div class="testimonio">
+                        <div class="testimonio-avatar">L</div>
+                        <p class="estrellas">⭐⭐⭐⭐⭐</p>
+                        <p class="testimonio-texto">"Mi gata está feliz con su nueva cama. Recomiendo 100% esta tienda."</p>
+                        <p class="testimonio-nombre">— Lucía P.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="newsletter">
+                <div id="newsletter-inner">
+                    <h2>¡SUSCRÍBETE Y RECIBE OFERTAS EXCLUSIVAS!</h2>
+                    <p>Ingresa tu email y recibe descuentos cada semana directamente en tu correo.</p>
+                    <div id="newsletter-form">
+                        <input type="text" placeholder="✉ Escribe tu email aquí...">
+                        <button>SUSCRIBIRSE</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="redes">
+                <h2>SÍGUENOS EN REDES SOCIALES</h2>
+                <p id="redes-subtitulo">Comparte el amor por tus mascotas con nosotros</p>
+                <div id="redes-grid">
+                    <div class="red-social"><img src="imagenes/facebook.png" alt="Facebook"><p>Facebook</p></div>
+                    <div class="red-social"><img src="imagenes/instagram.png" alt="Instagram"><p>Instagram</p></div>
+                    <div class="red-social"><img src="imagenes/twitter.png" alt="Twitter"><p>Twitter</p></div>
+                </div>
+            </section>
+
+        </article>
+
+        <footer>
+            <div id="footer-contenido">
+                <div class="footer-col">
+                    <h4>MASCOTERIAS</h4>
+                    <p>Tu tienda de mascotas favorita. Calidad y amor para tus animales.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>LINKS</h4>
+                    <a href="index.html">Inicio</a>
+                    <a href="hypervinculos/productos.html">Productos</a>
+                    <a href="hypervinculos/ofertas.html">Ofertas</a>
+                    <a href="hypervinculos/mas.html">Más</a>
+                </div>
+                <div class="footer-col">
+                    <h4>CONTACTO</h4>
+                    <p>📧 info@mascoterias.com</p>
+                    <p>📞 +51 999 999 999</p>
+                    <p>📍 Lima, Perú</p>
+                </div>
+            </div>
+            <div id="footer-bottom">
+                <p>© 2026 MASCOTERIAS — Todos los derechos reservados</p>
+            </div>
+        </footer>
+
+    </main>
+</body>
+</html>

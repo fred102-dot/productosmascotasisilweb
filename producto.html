@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASCOTERIAS - Producto</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            var nombre = localStorage.getItem("prod_nombre") || "Producto";
+            var precio = localStorage.getItem("prod_precio") || "";
+            var img = localStorage.getItem("prod_img") || "imagenes/logo.png";
+
+            $("#prod-nombre").text(nombre);
+            $("#prod-precio").text(precio);
+            document.getElementById("prod-img").setAttribute("src", img);
+            document.getElementById("prod-img").setAttribute("alt", nombre);
+
+            $("#detalle-producto").hide().fadeIn(800);
+            $("#relacionados").hide().fadeIn(1400);
+
+            $(".producto").mouseenter(function(){
+                $(this).animate({marginTop: "-5px"}, 150);
+            });
+            $(".producto").mouseleave(function(){
+                $(this).animate({marginTop: "0px"}, 150);
+            });
+
+            $(".btn-carrito").click(function(){
+                $(this).text("✔ Agregado!").css("background-color", "green");
+                var nombre = $("#prod-nombre").text();
+                var precio = $("#prod-precio").text();
+                var img = $("#prod-img").attr("src");
+                var carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
+                carrito.push({nombre: nombre, precio: precio, img: img});
+                localStorage.setItem("carrito", JSON.stringify(carrito));
+                setTimeout(function(){
+                    window.location = "Inicio/carrito.html";
+                }, 800);
+            });
+
+            $("#btn-carrito-menu").click(function(){
+                window.location = "Inicio/carrito.html";
+            });
+
+            $("#buscador input").keydown(function(e){
+                if(e.key === "Enter"){
+                    window.location = "Inicio/busqueda.html";
+                }
+            });
+
+            $(".btn-agregar").click(function(e){
+                e.preventDefault();
+                var n = $(this).siblings(".nombre-producto").text();
+                var p = $(this).siblings(".precio-producto").text();
+                var i = $(this).closest(".producto").find(".img-producto").attr("src");
+                localStorage.setItem("prod_nombre", n);
+                localStorage.setItem("prod_precio", p);
+                localStorage.setItem("prod_img", i);
+                location.reload();
+            });
+
+        })
+    </script>
+</head>
+<body>
+    <main>
+        <header>
+            <nav id="menu">
+                <a href="index.html">INICIO</a>
+                <a href="hypervinculos/productos.html">PRODUCTOS</a>
+                <div id="logo"><img src="imagenes/logo.png" alt="logo"></div>
+                <a href="hypervinculos/ofertas.html">OFERTAS</a>
+                <a href="hypervinculos/mas.html">MÁS</a>
+                <button id="btn-carrito-menu">Carrito</button>
+            </nav>
+            <div id="barra">
+                <div id="buscador">
+                    <input type="text" placeholder="Que buscas hoy?">
+                </div>
+                <div id="pedidos">
+                    QUIERES RECIBIR PEDIDOS? <button>Elegir</button>
+                </div>
+            </div>
+        </header>
+
+        <article>
+            <section id="detalle-producto">
+                <div id="columna-izquierda">
+                    <img id="prod-img" src="imagenes/logo.png" alt="producto" class="marco-imagen-grande">
+                </div>
+                <div id="info-producto">
+                    <h2 id="prod-nombre">Cargando...</h2>
+                    <p class="precio-producto" id="prod-precio"></p>
+                    <button class="btn-carrito">Agregar al carrito</button>
+                </div>
+            </section>
+
+            <section id="relacionados">
+                <h2>Productos Relacionados</h2>
+                <div class="productos-grid">
+                    <div class="producto">
+                        <img class="img-producto" src="productos_imagenes/Juguete para perro.jpg" alt="Juguete">
+                        <p class="nombre-producto">Juguete Para Perro</p>
+                        <p class="precio-producto">S/ 12.50</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                    <div class="producto">
+                        <img class="img-producto" src="productos_imagenes/cama para gatos.jfif" alt="Cama">
+                        <p class="nombre-producto">Cama Para Gatos</p>
+                        <p class="precio-producto">S/ 35.00</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                    <div class="producto">
+                        <img class="img-producto" src="productos_imagenes/collar para gatos.jfif" alt="Collar">
+                        <p class="nombre-producto">Collar Para Gatos</p>
+                        <p class="precio-producto">S/ 15.00</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                    <div class="producto">
+                        <img class="img-producto" src="productos_imagenes/pelota para perros.jfif" alt="Pelota">
+                        <p class="nombre-producto">Pelota Para Perro</p>
+                        <p class="precio-producto">S/ 8.90</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                    <div class="producto">
+                        <img class="img-producto" src="productos_imagenes/snacks para perros.jfif" alt="Snacks">
+                        <p class="nombre-producto">Snacks Para Perro</p>
+                        <p class="precio-producto">S/ 10.50</p>
+                        <a href="#" class="btn-agregar">AGREGAR</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <footer>
+            <div id="footer-contenido">
+                <div class="footer-col">
+                    <h4>MASCOTERIAS</h4>
+                    <p>Tu tienda de mascotas favorita.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>LINKS</h4>
+                    <a href="index.html">Inicio</a>
+                    <a href="hypervinculos/productos.html">Productos</a>
+                    <a href="hypervinculos/ofertas.html">Ofertas</a>
+                </div>
+                <div class="footer-col">
+                    <h4>CONTACTO</h4>
+                    <p>📧 info@mascoterias.com</p>
+                    <p>📞 +51 999 999 999</p>
+                </div>
+            </div>
+            <div id="footer-bottom">
+                <p>© 2026 MASCOTERIAS — Todos los derechos reservados</p>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>

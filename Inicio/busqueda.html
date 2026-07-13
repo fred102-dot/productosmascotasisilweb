@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASCOTERIAS - Busqueda</title>
+    <link rel="stylesheet" href="../style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            var catalogo = [
+                {nombre: "Alimento Perro 3kg", precio: "S/ 45.90", img: "productos_imagenes/alimento para perro 3kg.jfif"},
+                {nombre: "Juguete Para Perro", precio: "S/ 12.50", img: "productos_imagenes/Juguete para perro.jpg"},
+                {nombre: "Correa Para Gatos", precio: "S/ 18.00", img: "productos_imagenes/correa para gatos.jfif"},
+                {nombre: "Cama Para Gatos", precio: "S/ 35.00", img: "productos_imagenes/cama para gatos.jfif"},
+                {nombre: "Shampoo Para Perro", precio: "S/ 22.00", img: "productos_imagenes/shampoo para perros.jfif"},
+                {nombre: "Collar Para Gatos", precio: "S/ 15.00", img: "productos_imagenes/collar para gatos.jfif"},
+                {nombre: "Pelota Para Perro", precio: "S/ 8.90", img: "productos_imagenes/pelota para perros.jfif"},
+                {nombre: "Snacks Para Perro", precio: "S/ 10.50", img: "productos_imagenes/snacks para perros.jfif"}
+            ];
+
+            function irABuscar(){
+                var texto = $("#buscador input").val().trim();
+                window.location = "busqueda.html?q=" + encodeURIComponent(texto);
+            }
+
+            $("#btn-carrito-menu").click(function(){
+                window.location = "carrito.html";
+            });
+
+            $("#buscador input").keydown(function(e){
+                if(e.key === "Enter"){
+                    irABuscar();
+                }
+            });
+
+            function obtenerParametro(nombre){
+                var params = new URLSearchParams(window.location.search);
+                return params.get(nombre) || "";
+            }
+
+            var query = obtenerParametro("q");
+            $("#buscador input").val(query);
+
+            var resultados = catalogo.filter(function(item){
+                return item.nombre.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+            });
+
+            $(".productos-grid").empty();
+
+            if(resultados.length === 0){
+                $(".productos-grid").append("<p id='sin-resultados'>No se encontraron productos para \"" + query + "\".</p>");
+            } else {
+                $.each(resultados, function(index, item){
+                    var productoHtml = "<div class='producto'>" +
+                        "<img class='img-producto' src='../" + item.img + "' alt='" + item.nombre + "'>" +
+                        "<p class='nombre-producto'>" + item.nombre + "</p>" +
+                        "<p class='precio-producto'>" + item.precio + "</p>" +
+                        "<a href='#' class='btn-agregar'>AGREGAR</a>" +
+                    "</div>";
+                    $(".productos-grid").append(productoHtml);
+                });
+            }
+
+            $(document).on("click", ".btn-agregar", function(e){
+                e.preventDefault();
+                var producto = $(this).closest(".producto");
+                var nombre = producto.find(".nombre-producto").text();
+                var precio = producto.find(".precio-producto").text();
+                var img = producto.find(".img-producto").attr("src");
+                localStorage.setItem("prod_nombre", nombre);
+                localStorage.setItem("prod_precio", precio);
+                localStorage.setItem("prod_img", img.replace("../", ""));
+                window.location = "../producto.html";
+            });
+
+        })
+    </script>
+</head>
+<body>
+    <main>
+        <header>
+            <nav id="menu">
+                <a href="../index.html">INICIO</a>
+                <a href="../hypervinculos/productos.html">PRODUCTOS</a>
+                <div id="logo"><img src="../imagenes/logo.png" alt="logo"></div>
+                <a href="../hypervinculos/ofertas.html">OFERTAS</a>
+                <a href="../hypervinculos/mas.html">MÁS</a>
+                <button id="btn-carrito-menu">Carrito</button>
+            </nav>
+            <div id="barra">
+                <div id="buscador">
+                    <input type="text" placeholder="Que buscas hoy?">
+                </div>
+                <div id="pedidos">
+                    QUIERES RECIBIR PEDIDOS? <button>Elegir</button>
+                </div>
+            </div>
+        </header>
+        <article>
+            <section id="tendencia">
+                <h2>RESULTADOS DE BÚSQUEDA 🔍</h2>
+                <div class="productos-grid">
+                </div>
+            </section>
+        </article>
+        <footer>
+            <p>© 2026 MASCOTERIAS - Todos los derechos reservados</p>
+        </footer>
+    </main>
+</body>
+</html>
